@@ -1,12 +1,16 @@
-<li [ngClass]="{'post-list-item': true,
-                'list-group-item-success': isPositive(),
-                'list-group-item-danger' : isNegative()}">
-    <h4>{{ postTitle }}</h4>
-    <span class="date">{{ postCreatedAt | date : 'short' }}</span>
-    <p>{{ postContent }}</p>
-    <span [ngClass]="{'badge badge-secondary': true,
-                      'badge-success' : isPositive(),
-                      'badge-danger' : isNegative()}">{{ postLoveIts }}</span>
-    <button class="btn btn-success" (click)="incrementLoveIts()">Love it!</button>
-    <button class="btn btn-danger" (click)="decrementLoveIts()">Don't love it!</button>
-</li>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="post-list">
+      <li class="post-list-item">
+        <h4>{{ post.title }}</h4>
+        <p class="date">{{ post.createdAt | date : 'short' }}</p>
+        <p>{{ post.content }}</p>
+        <span [ngClass]="{'badge badge-secondary': true,
+                          'badge-success' : post.loveIts > 0,
+                          'badge-danger' : post.loveIts < 0}">{{ post.loveIts }}
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+

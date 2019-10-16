@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {Post} from '../models/Post';
+import {PostsService} from '../services/posts.service';
+import {ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-list-item',
@@ -6,29 +9,19 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./post-list-item.component.scss']
 })
 export class PostListItemComponent implements OnInit {
- @Input() postTitle: string;
- @Input() postContent: string;
- @Input() postLoveIts: number;
- @Input() postCreatedAt: Date;
-  constructor() { }
 
-  incrementLoveIts(){
-    this.postLoveIts++;
-  }
+  post: Post;
 
-  decrementLoveIts(){
-    this.postLoveIts--;
-  }
-
-  isPositive(){
-    return this.postLoveIts > 0;
-  }
-
-  isNegative(){
-    return this.postLoveIts < 0;
-  }
+  constructor(private postsService: PostsService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.post = new Post('', '');
+    const id = this.route.snapshot.params.id;
+    this.postsService.getSinglePost(+id).then(
+      (post: Post) => {
+        this.post = post;
+      }
+    );
   }
-
 }
