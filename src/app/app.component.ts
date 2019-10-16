@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Post } from './Post';
+import { Post } from './models/Post';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,18 @@ import { Post } from './Post';
 export class AppComponent {
   title = 'blog-application';
 
-  posts = [
-    new Post('My first post','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vitae enim libero. Aliquam tincidunt quis tellus scelerisque pretium. Vestibulum venenatis in nisl id lobortis. Nullam volutpat ultrices quam a hendrerit. Duis accumsan libero et aliquet iaculis.', 25),
-    new Post('My second post', 'Sed et convallis elit. Vestibulum sed interdum est, at maximus mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.', -10),
-    new Post('My third post', 'Phasellus cursus, diam varius feugiat auctor, tellus sapien faucibus eros, ac vestibulum ligula lectus a nulla.', 0)
-  ];
+  constructor() {
+    const firebaseConfig = {
+      apiKey: 'AIzaSyBxLkxxVlfYUAkN69h_fTr79ORHij8GanY',
+      authDomain: 'blog-application-95cf5.firebaseapp.com',
+      databaseURL: 'https://blog-application-95cf5.firebaseio.com',
+      projectId: 'blog-application-95cf5',
+      storageBucket: 'blog-application-95cf5.appspot.com',
+      messagingSenderId: '1051317425852',
+      appId: '1:1051317425852:web:d48cb3abd631968520a2b9'
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  }
+
 }
