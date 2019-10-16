@@ -1,7 +1,23 @@
-<ul class="post-list">
-    <app-post-list-item *ngFor="let post of posts"
-                [postTitle] = "post.title"
-                [postContent] = "post.content"
-                [postLoveIts] = "post.loveIts"
-                [postCreatedAt] = "post.created_at"></app-post-list-item>
-</ul>
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Liste des posts</h2>
+    <ul class="post-list">
+      <li  *ngFor="let post of posts; let i = index" [ngClass]="{'post-list-item': true,
+                    'list-group-item-success': post.loveIts > 0,
+                    'list-group-item-danger' : post.loveIts < 0}">
+        <h4>{{ post.title }}</h4>
+        <button class="btn btn-default pull-right" (click)="onDeletePost(post)">
+          <span class="glyphicon glyphicon-minus"></span>
+        </button>
+        <p class="date">{{ post.createdAt | date : 'short' }}</p>
+        <p>{{ post.content }}</p>
+        <span [ngClass]="{'badge badge-secondary': true,
+                          'badge-success' : post.loveIts > 0,
+                          'badge-danger' : post.loveIts < 0}">{{ post.loveIts }}</span>
+        <button class="btn btn-success" (click)="onIncrementLoveIts(post)">Love it!</button>
+        <button class="btn btn-danger" (click)="onDecrementLoveIts(post)">Don't love it!</button>
+        <button class="btn btn-default" (click)="onPostView(i)">Voir post</button>
+      </li>
+    </ul>
+  </div>
+</div>
